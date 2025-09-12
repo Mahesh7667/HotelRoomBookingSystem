@@ -25,6 +25,7 @@ namespace HotelRoomBooking.Migrations
 
                     b.Property<string>("BookingReference")
                         .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CheckInDate")
@@ -35,6 +36,7 @@ namespace HotelRoomBooking.Migrations
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("NumberOfGuests")
@@ -58,6 +60,7 @@ namespace HotelRoomBooking.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -99,6 +102,7 @@ namespace HotelRoomBooking.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -175,10 +179,10 @@ namespace HotelRoomBooking.Migrations
                         new
                         {
                             Id = 9,
-                            Capacity = 1,
+                            Capacity = 2,
                             HotelId = 2,
-                            Price = 90m,
-                            Type = "single"
+                            Price = 150m,
+                            Type = "double"
                         },
                         new
                         {
@@ -191,10 +195,10 @@ namespace HotelRoomBooking.Migrations
                         new
                         {
                             Id = 11,
-                            Capacity = 2,
+                            Capacity = 4,
                             HotelId = 2,
-                            Price = 150m,
-                            Type = "double"
+                            Price = 250m,
+                            Type = "deluxe"
                         },
                         new
                         {
@@ -207,26 +211,26 @@ namespace HotelRoomBooking.Migrations
                         new
                         {
                             Id = 13,
-                            Capacity = 4,
-                            HotelId = 2,
-                            Price = 250m,
-                            Type = "deluxe"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Capacity = 6,
-                            HotelId = 2,
-                            Price = 350m,
-                            Type = "suite"
-                        },
-                        new
-                        {
-                            Id = 15,
                             Capacity = 1,
                             HotelId = 3,
                             Price = 60m,
                             Type = "single"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Capacity = 1,
+                            HotelId = 3,
+                            Price = 60m,
+                            Type = "single"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Capacity = 2,
+                            HotelId = 3,
+                            Price = 100m,
+                            Type = "double"
                         },
                         new
                         {
@@ -247,10 +251,10 @@ namespace HotelRoomBooking.Migrations
                         new
                         {
                             Id = 18,
-                            Capacity = 6,
+                            Capacity = 4,
                             HotelId = 3,
-                            Price = 240m,
-                            Type = "suite"
+                            Price = 160m,
+                            Type = "deluxe"
                         });
                 });
 

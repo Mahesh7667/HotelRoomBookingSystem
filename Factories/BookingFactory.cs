@@ -67,11 +67,6 @@ public class RoomFactory : IRoomFactory
     {
         return CreateRoom("deluxe", 4, price, hotelId);
     }
-
-    public Room CreateSuite(decimal price, int hotelId)
-    {
-        return CreateRoom("suite", 6, price, hotelId);
-    }
 }
 
 /// <summary>

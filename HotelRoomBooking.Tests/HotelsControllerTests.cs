@@ -34,8 +34,13 @@ namespace HotelRoomBooking.Tests
 
             var rooms = new List<Room>
             {
-                new Room { Id = 1, Type = "single", Capacity = 1, Price = 50, HotelId = 1 },
-                new Room { Id = 2, Type = "double", Capacity = 2, Price = 80, HotelId = 1 }
+                // 6 rooms total: 2 single, 2 double, 2 deluxe
+                new Room { Id = 1, Type = "single", Capacity = 1, Price = 60, HotelId = 1 },
+                new Room { Id = 2, Type = "single", Capacity = 1, Price = 60, HotelId = 1 },
+                new Room { Id = 3, Type = "double", Capacity = 2, Price = 100, HotelId = 1 },
+                new Room { Id = 4, Type = "double", Capacity = 2, Price = 100, HotelId = 1 },
+                new Room { Id = 5, Type = "deluxe", Capacity = 4, Price = 160, HotelId = 1 },
+                new Room { Id = 6, Type = "deluxe", Capacity = 4, Price = 160, HotelId = 1 }
             };
             _context.Rooms.AddRange(rooms);
 
@@ -53,7 +58,7 @@ namespace HotelRoomBooking.Tests
             var okResult = Assert.IsType<OkObjectResult>(result);
             var hotel = Assert.IsType<Hotel>(okResult.Value);
             Assert.Equal("Test Hotel", hotel.Name);
-            Assert.Equal(2, hotel.Rooms.Count);
+            Assert.Equal(6, hotel.Rooms.Count); // Now 6 rooms per hotel
         }
 
         [Fact]

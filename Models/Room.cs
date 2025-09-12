@@ -8,7 +8,7 @@ namespace HotelRoomBooking.Models
 
         [Required]
         [StringLength(20)]
-        [RegularExpression("^(single|double|deluxe|suite)$", ErrorMessage = "Room type must be single, double, deluxe, or suite")]
+        [RegularExpression("^(single|double|deluxe)$", ErrorMessage = "Room type must be single, double, or deluxe")]
         public string Type { get; set; }
 
         [Required]

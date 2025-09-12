@@ -35,9 +35,13 @@ namespace HotelRoomBooking.Tests
 
             var rooms = new List<Room>
             {
+                // 6 rooms total: 2 single, 2 double, 2 deluxe
                 new Room { Id = 1, Type = "single", Capacity = 1, Price = 50, HotelId = 1 },
-                new Room { Id = 2, Type = "double", Capacity = 2, Price = 80, HotelId = 1 },
-                new Room { Id = 3, Type = "deluxe", Capacity = 4, Price = 120, HotelId = 1 }
+                new Room { Id = 2, Type = "single", Capacity = 1, Price = 50, HotelId = 1 },
+                new Room { Id = 3, Type = "double", Capacity = 2, Price = 80, HotelId = 1 },
+                new Room { Id = 4, Type = "double", Capacity = 2, Price = 80, HotelId = 1 },
+                new Room { Id = 5, Type = "deluxe", Capacity = 4, Price = 120, HotelId = 1 },
+                new Room { Id = 6, Type = "deluxe", Capacity = 4, Price = 120, HotelId = 1 }
             };
             _context.Rooms.AddRange(rooms);
 
@@ -58,7 +62,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request);
+            var actionResult = await _controller.CreateBooking(request);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             var createdResult = Assert.IsType<CreatedAtActionResult>(result);
@@ -84,7 +89,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request);
+            var actionResult = await _controller.CreateBooking(request);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -104,7 +110,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request);
+            var actionResult = await _controller.CreateBooking(request);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -124,7 +131,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request);
+            var actionResult = await _controller.CreateBooking(request);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -144,7 +152,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request);
+            var actionResult = await _controller.CreateBooking(request);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);
@@ -175,7 +184,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request2);
+            var actionResult = await _controller.CreateBooking(request2);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<ConflictObjectResult>(result);
@@ -206,7 +216,8 @@ namespace HotelRoomBooking.Tests
             };
 
             // Act
-            var result = await _controller.CreateBooking(request2);
+            var actionResult = await _controller.CreateBooking(request2);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<ConflictObjectResult>(result);
@@ -225,12 +236,13 @@ namespace HotelRoomBooking.Tests
                 NumberOfGuests = 2
             };
             var createResult = await _controller.CreateBooking(createRequest);
-            var createdResult = Assert.IsType<CreatedAtActionResult>(createResult);
+            var createdResult = Assert.IsType<CreatedAtActionResult>(createResult.Result);
             var createdBooking = Assert.IsType<Booking>(createdResult.Value);
             var reference = createdBooking.BookingReference;
 
             // Act
-            var result = await _controller.GetBooking(reference);
+            var actionResult = await _controller.GetBooking(reference);
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
@@ -244,7 +256,8 @@ namespace HotelRoomBooking.Tests
         public async Task GetBooking_NonExistingReference_ReturnsNotFound()
         {
             // Act
-            var result = await _controller.GetBooking("NONEXISTENT");
+            var actionResult = await _controller.GetBooking("NONEXISTENT");
+            var result = actionResult.Result; // Unwrap ActionResult
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);
@@ -263,7 +276,7 @@ namespace HotelRoomBooking.Tests
                 NumberOfGuests = 1
             };
             var result1 = await _controller.CreateBooking(request1);
-            var created1 = Assert.IsType<CreatedAtActionResult>(result1);
+            var created1 = Assert.IsType<CreatedAtActionResult>(result1.Result);
             var booking1 = Assert.IsType<Booking>(created1.Value);
 
             // Create second booking
@@ -276,7 +289,7 @@ namespace HotelRoomBooking.Tests
                 NumberOfGuests = 2
             };
             var result2 = await _controller.CreateBooking(request2);
-            var created2 = Assert.IsType<CreatedAtActionResult>(result2);
+            var created2 = Assert.IsType<CreatedAtActionResult>(result2.Result);
             var booking2 = Assert.IsType<Booking>(created2.Value);
 
             // Assert - References should be different

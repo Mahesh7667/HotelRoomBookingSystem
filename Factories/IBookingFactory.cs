@@ -43,11 +43,6 @@ public interface IRoomFactory
     /// Create a deluxe room
     /// </summary>
     Room CreateDeluxeRoom(decimal price, int hotelId);
-
-    /// <summary>
-    /// Create a suite
-    /// </summary>
-    Room CreateSuite(decimal price, int hotelId);
 }
 
 /// <summary>
