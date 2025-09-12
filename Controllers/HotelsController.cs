@@ -1,5 +1,7 @@
+using HotelRoomBooking.Data;
 using HotelRoomBooking.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelRoomBooking.Controllers;
 
@@ -7,17 +9,25 @@ namespace HotelRoomBooking.Controllers;
 [Route("api/[controller]")]
 public class HotelsController : ControllerBase
 {
+    private readonly HotelBookingContext _context;
+
+    public HotelsController(HotelBookingContext context)
+    {
+        _context = context;
+    }
+
     // GET: api/Hotels?name={name}
     [HttpGet]
-    public ActionResult<Hotel> GetHotelByName([FromQuery] string name)
+    public async Task<ActionResult<Hotel>> GetHotelByName([FromQuery] string name)
     {
         if (string.IsNullOrEmpty(name))
         {
             return BadRequest("Hotel name is required.");
         }
 
-        var hotel = DataStore.Hotels
-            .FirstOrDefault(h => h.Name.ToLower() == name.ToLower());
+        var hotel = await _context.Hotels
+            .Include(h => h.Rooms)
+            .FirstOrDefaultAsync(h => h.Name.ToLower() == name.ToLower());
 
         if (hotel == null)
         {
@@ -27,10 +37,10 @@ public class HotelsController : ControllerBase
         return hotel;
     }
 
-    // GET: api/GetAllHotels
-    [HttpGet("/api/GetAllHotels")]
-    public ActionResult<IEnumerable<Hotel>> GetAllHotels()
+    // GET: api/Hotels/all
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<Hotel>>> GetAllHotels()
     {
-        return DataStore.Hotels.ToList();
+        return await _context.Hotels.Include(h => h.Rooms).ToListAsync();
     }
 }

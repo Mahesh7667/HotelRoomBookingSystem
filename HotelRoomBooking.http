@@ -1,8 +1,8 @@
 @HotelRoomBooking_HostAddress = http://localhost:5232
 
-# Seed data
-POST {{HotelRoomBooking_HostAddress}}/api/data/seed
-Content-Type: application/json
+# Get all hotels
+GET {{HotelRoomBooking_HostAddress}}/api/hotels/all
+Accept: application/json
 
 ###
 
@@ -32,13 +32,13 @@ Content-Type: application/json
 
 ###
 
-# Get booking by reference
-GET {{HotelRoomBooking_HostAddress}}/api/bookings/ABC12345
+# Get booking by reference (use the reference returned from create booking)
+GET {{HotelRoomBooking_HostAddress}}/api/bookings/{reference}
 Accept: application/json
 
 ###
 
-# Reset data
+# Reset bookings data
 POST {{HotelRoomBooking_HostAddress}}/api/data/reset
 Content-Type: application/json
 

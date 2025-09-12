@@ -1,5 +1,7 @@
+using HotelRoomBooking.Data;
 using HotelRoomBooking.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelRoomBooking.Controllers;
 
@@ -7,9 +9,16 @@ namespace HotelRoomBooking.Controllers;
 [Route("api/[controller]")]
 public class RoomsController : ControllerBase
 {
+    private readonly HotelBookingContext _context;
+
+    public RoomsController(HotelBookingContext context)
+    {
+        _context = context;
+    }
+
     // GET: api/Rooms/available?checkIn={date}&checkOut={date}&guests={number}
     [HttpGet("available")]
-    public ActionResult<IEnumerable<Room>> GetAvailableRooms(
+    public async Task<ActionResult<IEnumerable<Room>>> GetAvailableRooms(
         [FromQuery] DateTime checkIn,
         [FromQuery] DateTime checkOut,
         [FromQuery] int guests)
@@ -25,14 +34,15 @@ public class RoomsController : ControllerBase
         }
 
         // Find rooms that are available for the entire period and have sufficient capacity
-        var availableRooms = DataStore.Rooms
+        var availableRooms = await _context.Rooms
             .Where(r => r.Capacity >= guests)
-            .Where(r => !DataStore.Bookings.Any(b =>
+            .Where(r => !_context.Bookings.Any(b =>
                 b.RoomId == r.Id &&
                 ((b.CheckInDate <= checkIn && b.CheckOutDate > checkIn) ||
                  (b.CheckInDate < checkOut && b.CheckOutDate >= checkOut) ||
                  (b.CheckInDate >= checkIn && b.CheckOutDate <= checkOut))))
-            .ToList();
+            .Include(r => r.Hotel)
+            .ToListAsync();
 
         return availableRooms;
     }

@@ -154,7 +154,7 @@
         }
       }
     },
-    "/api/GetAllHotels": {
+    "/api/Hotels/all": {
       "get": {
         "tags": [
           "Hotels"
