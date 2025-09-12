@@ -2,6 +2,16 @@
 
 A .NET 8 Web API for managing hotel room bookings, built with Entity Framework Core and SQLite.
 
+## Live Demo
+- **Swagger UI:** http://hotelroombooking20250912183244-aqd4aycnced6fecs.ukwest-01.azurewebsites.net/swagger/index.html
+
+- **Loom Video while coding:** https://loom.com/share/folder/a0fbb878f52e45b9bfae3afebaf892f5
+  
+## Flow Diagrams
+![Hotel Room Booking System Flow](graphs/flow.png)
+![Hotel Room Booking System endpoints](graphs/endpoints.png)
+
+
 ## Features
 - Manage hotels, rooms, and bookings
 - Check room availability
@@ -13,9 +23,6 @@ A .NET 8 Web API for managing hotel room bookings, built with Entity Framework C
 - **Database:** SQLite with Entity Framework Core
 - **Testing:** xUnit
 - **Deployment:** Azure App Service (Free Tier)
-
-## Live Demo
-- **Swagger UI:** http://hotelroombooking20250912183244-aqd4aycnced6fecs.ukwest-01.azurewebsites.net/swagger/index.html
 
 ## Local Setup
 1. Clone the repo: `git clone https://github.com/Mahesh7667/HotelRoomBookingSystem.git`
@@ -47,11 +54,7 @@ A .NET 8 Web API for managing hotel room bookings, built with Entity Framework C
 ## Testing
 Run tests: `dotnet test`
 
-## Contributing
-1. Fork the repo.
-2. Create a feature branch.
-3. Commit changes.
-4. Push and create PR.
+## AI Assistants Used
 
-## License
-MIT
+- **Copilot :** Autocompletion, Unit Tests Boilerplate
+- **Napkin.ai:** FlowCharts
