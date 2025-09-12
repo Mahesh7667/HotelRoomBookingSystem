@@ -50,7 +50,7 @@ public class HotelsController : ControllerBase
         var rooms = await _unitOfWork.Rooms.FindAsync(r => r.HotelId == hotel.Id);
         hotel.Rooms = rooms.ToList();
 
-        return hotel;
+        return Ok(hotel);
     }
 
     /// <summary>

@@ -15,8 +15,7 @@ A .NET 8 Web API for managing hotel room bookings, built with Entity Framework C
 - **Deployment:** Azure App Service (Free Tier)
 
 ## Live Demo
-- **API Base URL:** https://hotelroombooking20250912180532-g0crcvcycjg2hbcm.canadacentral-01.azurewebsites.net
-- **Swagger UI:** https://hotelroombooking20250912180532-g0crcvcycjg2hbcm.canadacentral-01.azurewebsites.net/swagger
+- **Swagger UI:** http://hotelroombooking20250912183244-aqd4aycnced6fecs.ukwest-01.azurewebsites.net/swagger/index.html
 
 ## Local Setup
 1. Clone the repo: `git clone https://github.com/Mahesh7667/HotelRoomBookingSystem.git`

@@ -89,6 +89,12 @@ public class BookingService : IBookingService
             return errors;
         }
 
+        // Validate number of guests
+        if (request.NumberOfGuests < 1)
+        {
+            errors.Add("Number of guests must be at least 1.");
+        }
+
         // Validate capacity
         if (request.NumberOfGuests > room.Capacity)
         {

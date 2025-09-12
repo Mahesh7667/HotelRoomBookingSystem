@@ -54,7 +54,7 @@ namespace HotelRoomBooking.Tests
             // Arrange
             var request = new BookingRequest
             {
-                RoomId = 2,
+                RoomId = 3, // Double room, capacity 2
                 CustomerName = "John Doe",
                 CheckIn = DateTime.Now.AddDays(1),
                 CheckOut = DateTime.Now.AddDays(3),
@@ -69,7 +69,7 @@ namespace HotelRoomBooking.Tests
             var createdResult = Assert.IsType<CreatedAtActionResult>(result);
             var booking = Assert.IsType<Booking>(createdResult.Value);
             Assert.Equal("John Doe", booking.CustomerName);
-            Assert.Equal(2, booking.RoomId);
+            Assert.Equal(3, booking.RoomId);
             Assert.Equal(2, booking.NumberOfGuests);
             Assert.NotNull(booking.BookingReference);
             Assert.True(booking.BookingReference.Length == 8); // GUID substring
@@ -165,7 +165,7 @@ namespace HotelRoomBooking.Tests
             // Arrange - First booking
             var request1 = new BookingRequest
             {
-                RoomId = 2,
+                RoomId = 3, // Double room
                 CustomerName = "Guest 1",
                 CheckIn = DateTime.Now.AddDays(1),
                 CheckOut = DateTime.Now.AddDays(3),
@@ -176,7 +176,7 @@ namespace HotelRoomBooking.Tests
             // Second booking for same dates
             var request2 = new BookingRequest
             {
-                RoomId = 2, // Same room
+                RoomId = 3, // Same room
                 CustomerName = "Guest 2",
                 CheckIn = DateTime.Now.AddDays(1), // Same dates
                 CheckOut = DateTime.Now.AddDays(3),
@@ -197,7 +197,7 @@ namespace HotelRoomBooking.Tests
             // Arrange - First booking: days 1-3
             var request1 = new BookingRequest
             {
-                RoomId = 2,
+                RoomId = 3, // Double room
                 CustomerName = "Guest 1",
                 CheckIn = DateTime.Now.AddDays(1),
                 CheckOut = DateTime.Now.AddDays(3),
@@ -208,7 +208,7 @@ namespace HotelRoomBooking.Tests
             // Second booking: days 2-4 (overlaps)
             var request2 = new BookingRequest
             {
-                RoomId = 2, // Same room
+                RoomId = 3, // Same room
                 CustomerName = "Guest 2",
                 CheckIn = DateTime.Now.AddDays(2), // Overlaps
                 CheckOut = DateTime.Now.AddDays(4),
@@ -229,7 +229,7 @@ namespace HotelRoomBooking.Tests
             // Arrange - Create a booking first
             var createRequest = new BookingRequest
             {
-                RoomId = 2,
+                RoomId = 3, // Double room
                 CustomerName = "John Doe",
                 CheckIn = DateTime.Now.AddDays(1),
                 CheckOut = DateTime.Now.AddDays(3),
@@ -249,7 +249,7 @@ namespace HotelRoomBooking.Tests
             var booking = Assert.IsType<Booking>(okResult.Value);
             Assert.Equal(reference, booking.BookingReference);
             Assert.Equal("John Doe", booking.CustomerName);
-            Assert.Equal(2, booking.RoomId);
+            Assert.Equal(3, booking.RoomId);
         }
 
         [Fact]

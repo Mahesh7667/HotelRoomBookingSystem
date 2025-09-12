@@ -40,7 +40,19 @@ public class BookingsController : ControllerBase
 
         if (!result.IsSuccess)
         {
-            return BadRequest(new { errors = result.Errors });
+            var errorMessage = string.Join(" ", result.Errors);
+            if (errorMessage.Contains("not found"))
+            {
+                return NotFound(new { errors = result.Errors });
+            }
+            else if (errorMessage.Contains("not available"))
+            {
+                return Conflict(new { errors = result.Errors });
+            }
+            else
+            {
+                return BadRequest(new { errors = result.Errors });
+            }
         }
 
         return CreatedAtAction(nameof(GetBooking), new { reference = result.Booking!.BookingReference }, result.Booking);
@@ -65,7 +77,7 @@ public class BookingsController : ControllerBase
             return NotFound("Booking not found.");
         }
 
-        return booking;
+        return Ok(booking);
     }
 }
 
