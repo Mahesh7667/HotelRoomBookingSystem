@@ -73,6 +73,26 @@
   },
   {
     "ContainingType": "HotelRoomBooking.Controllers.HotelsController",
+    "Method": "GetAllHotels",
+    "RelativePath": "api/GetAllHotels",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelRoomBooking.Models.Hotel, HotelRoomBooking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelRoomBooking.Controllers.HotelsController",
     "Method": "GetHotelByName",
     "RelativePath": "api/Hotels",
     "HttpMethod": "GET",
@@ -88,26 +108,6 @@
     "ReturnTypes": [
       {
         "Type": "HotelRoomBooking.Models.Hotel",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "HotelRoomBooking.Controllers.HotelsController",
-    "Method": "GetAllHotels",
-    "RelativePath": "api/Hotels/all",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[HotelRoomBooking.Models.Hotel, HotelRoomBooking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

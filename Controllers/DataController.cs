@@ -19,10 +19,10 @@ public class DataController : ControllerBase
     [HttpPost("seed")]
     public async Task<IActionResult> SeedData()
     {
-        // Database will be seeded automatically via OnModelCreating
-        // But we can ensure migrations are applied
+        // Drop and recreate database to apply new seed data
+        await _context.Database.EnsureDeletedAsync();
         await _context.Database.MigrateAsync();
-        return Ok("Database seeded successfully.");
+        return Ok("Database recreated and seeded successfully.");
     }
 
     // POST: api/Data/reset

@@ -1,0 +1,96 @@
+using HotelRoomBooking.Controllers;
+using HotelRoomBooking.Data;
+using HotelRoomBooking.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Xunit;
+
+namespace HotelRoomBooking.Tests
+{
+    public class HotelsControllerTests : IDisposable
+    {
+        private readonly HotelBookingContext _context;
+        private readonly HotelsController _controller;
+
+        public HotelsControllerTests()
+        {
+            // Create in-memory database for testing
+            var options = new DbContextOptionsBuilder<HotelBookingContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            _context = new HotelBookingContext(options);
+            _controller = new HotelsController(_context);
+
+            // Seed test data
+            SeedTestData();
+        }
+
+        private void SeedTestData()
+        {
+            var hotel = new Hotel { Id = 1, Name = "Test Hotel" };
+            _context.Hotels.Add(hotel);
+
+            var rooms = new List<Room>
+            {
+                new Room { Id = 1, Type = "single", Capacity = 1, Price = 50, HotelId = 1 },
+                new Room { Id = 2, Type = "double", Capacity = 2, Price = 80, HotelId = 1 }
+            };
+            _context.Rooms.AddRange(rooms);
+
+            _context.SaveChanges();
+        }
+
+        [Fact]
+        public async Task GetHotelByName_ExistingHotel_ReturnsHotel()
+        {
+            // Act
+            var result = await _controller.GetHotelByName("Test Hotel");
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var hotel = Assert.IsType<Hotel>(okResult.Value);
+            Assert.Equal("Test Hotel", hotel.Name);
+            Assert.Equal(2, hotel.Rooms.Count);
+        }
+
+        [Fact]
+        public async Task GetHotelByName_NonExistingHotel_ReturnsNotFound()
+        {
+            // Act
+            var result = await _controller.GetHotelByName("Non Existing Hotel");
+
+            // Assert
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task GetHotelByName_EmptyName_ReturnsBadRequest()
+        {
+            // Act
+            var result = await _controller.GetHotelByName("");
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task GetAllHotels_ReturnsAllHotels()
+        {
+            // Act
+            var result = await _controller.GetAllHotels();
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var hotels = Assert.IsType<List<Hotel>>(okResult.Value);
+            Assert.Single(hotels);
+            Assert.Equal("Test Hotel", hotels.First().Name);
+        }
+
+        public void Dispose()
+        {
+            _context.Database.EnsureDeleted();
+            _context.Dispose();
+        }
+    }
+}
