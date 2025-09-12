@@ -45,7 +45,8 @@ namespace HotelRoomBooking.Tests
         public async Task GetHotelByName_ExistingHotel_ReturnsHotel()
         {
             // Act
-            var result = await _controller.GetHotelByName("Test Hotel");
+            var actionResult = await _controller.GetHotelByName("Test Hotel");
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
@@ -58,7 +59,8 @@ namespace HotelRoomBooking.Tests
         public async Task GetHotelByName_NonExistingHotel_ReturnsNotFound()
         {
             // Act
-            var result = await _controller.GetHotelByName("Non Existing Hotel");
+            var actionResult = await _controller.GetHotelByName("Non Existing Hotel");
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);
@@ -68,7 +70,8 @@ namespace HotelRoomBooking.Tests
         public async Task GetHotelByName_EmptyName_ReturnsBadRequest()
         {
             // Act
-            var result = await _controller.GetHotelByName("");
+            var actionResult = await _controller.GetHotelByName("");
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -78,7 +81,8 @@ namespace HotelRoomBooking.Tests
         public async Task GetAllHotels_ReturnsAllHotels()
         {
             // Act
-            var result = await _controller.GetAllHotels();
+            var actionResult = await _controller.GetAllHotels();
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);

@@ -51,7 +51,8 @@ namespace HotelRoomBooking.Tests
             var guests = 2;
 
             // Act
-            var result = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var actionResult = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
@@ -69,7 +70,8 @@ namespace HotelRoomBooking.Tests
             var guests = 2;
 
             // Act
-            var result = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var actionResult = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -84,7 +86,8 @@ namespace HotelRoomBooking.Tests
             var guests = 0;
 
             // Act
-            var result = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var actionResult = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -111,7 +114,8 @@ namespace HotelRoomBooking.Tests
             var guests = 2;
 
             // Act
-            var result = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var actionResult = await _controller.GetAvailableRooms(checkIn, checkOut, guests);
+            var result = actionResult.Result; // Unwrap the ActionResult
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);

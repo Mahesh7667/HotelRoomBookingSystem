@@ -1,7 +1,6 @@
-using HotelRoomBooking.Data;
+using HotelRoomBooking.Repositories;
 using HotelRoomBooking.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelRoomBooking.Controllers;
 
@@ -13,11 +12,11 @@ namespace HotelRoomBooking.Controllers;
 [Produces("application/json")]
 public class HotelsController : ControllerBase
 {
-    private readonly HotelBookingContext _context;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public HotelsController(HotelBookingContext context)
+    public HotelsController(IUnitOfWork unitOfWork)
     {
-        _context = context;
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     }
 
     /// <summary>
@@ -39,14 +38,17 @@ public class HotelsController : ControllerBase
             return BadRequest("Hotel name is required.");
         }
 
-        var hotel = await _context.Hotels
-            .Include(h => h.Rooms)
-            .FirstOrDefaultAsync(h => h.Name.ToLower() == name.ToLower());
+        var hotels = await _unitOfWork.Hotels.FindAsync(h => h.Name.ToLower() == name.ToLower());
+        var hotel = hotels.FirstOrDefault();
 
         if (hotel == null)
         {
             return NotFound("Hotel not found.");
         }
+
+        // Load rooms for the hotel
+        var rooms = await _unitOfWork.Rooms.FindAsync(r => r.HotelId == hotel.Id);
+        hotel.Rooms = rooms.ToList();
 
         return hotel;
     }
@@ -60,6 +62,7 @@ public class HotelsController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<Hotel>), 200)]
     public async Task<ActionResult<IEnumerable<Hotel>>> GetAllHotels()
     {
-        return await _context.Hotels.Include(h => h.Rooms).ToListAsync();
+        var hotels = await _unitOfWork.Hotels.GetWithIncludesAsync(h => h.Rooms);
+        return Ok(hotels);
     }
 }

@@ -18,10 +18,9 @@ builder.Services.AddDbContext<HotelBookingContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories and services
-// TODO: Fix namespace resolution for DI registration
-// builder.Services.AddScoped<global::HotelRoomBooking.Repositories.IUnitOfWork, global::HotelRoomBooking.Repositories.UnitOfWork>();
-// builder.Services.AddScoped<global::HotelRoomBooking.Services.IBookingService, global::HotelRoomBooking.Services.BookingService>();
-// builder.Services.AddScoped<global::HotelRoomBooking.Services.IRoomService, global::HotelRoomBooking.Services.RoomService>();
+builder.Services.AddScoped<HotelRoomBooking.Repositories.IUnitOfWork, HotelRoomBooking.Repositories.UnitOfWork>();
+builder.Services.AddScoped<HotelRoomBooking.Services.IBookingService, HotelRoomBooking.Services.BookingService>();
+builder.Services.AddScoped<HotelRoomBooking.Services.IRoomService, HotelRoomBooking.Services.RoomService>();
 
 var app = builder.Build();
 

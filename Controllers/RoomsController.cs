@@ -1,7 +1,6 @@
-using HotelRoomBooking.Data;
+using HotelRoomBooking.Services;
 using HotelRoomBooking.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelRoomBooking.Controllers;
 
@@ -13,11 +12,11 @@ namespace HotelRoomBooking.Controllers;
 [Produces("application/json")]
 public class RoomsController : ControllerBase
 {
-    private readonly HotelBookingContext _context;
+    private readonly IRoomService _roomService;
 
-    public RoomsController(HotelBookingContext context)
+    public RoomsController(IRoomService roomService)
     {
-        _context = context;
+        _roomService = roomService ?? throw new ArgumentNullException(nameof(roomService));
     }
 
     /// <summary>
@@ -37,27 +36,14 @@ public class RoomsController : ControllerBase
         [FromQuery] DateTime checkOut,
         [FromQuery] int guests)
     {
-        if (checkIn >= checkOut)
+        try
         {
-            return BadRequest("Check-out date must be after check-in date.");
+            var availableRooms = await _roomService.GetAvailableRoomsAsync(checkIn, checkOut, guests);
+            return Ok(availableRooms);
         }
-
-        if (guests <= 0)
+        catch (ArgumentException ex)
         {
-            return BadRequest("Number of guests must be greater than 0.");
+            return BadRequest(ex.Message);
         }
-
-        // Find rooms that are available for the entire period and have sufficient capacity
-        var availableRooms = await _context.Rooms
-            .Where(r => r.Capacity >= guests)
-            .Where(r => !_context.Bookings.Any(b =>
-                b.RoomId == r.Id &&
-                ((b.CheckInDate <= checkIn && b.CheckOutDate > checkIn) ||
-                 (b.CheckInDate < checkOut && b.CheckOutDate >= checkOut) ||
-                 (b.CheckInDate >= checkIn && b.CheckOutDate <= checkOut))))
-            .Include(r => r.Hotel)
-            .ToListAsync();
-
-        return availableRooms;
     }
 }
