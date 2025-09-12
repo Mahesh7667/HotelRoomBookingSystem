@@ -1,6 +1,8 @@
 using HotelRoomBooking.Controllers;
 using HotelRoomBooking.Data;
 using HotelRoomBooking.Models;
+using HotelRoomBooking.Repositories;
+using HotelRoomBooking.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -20,7 +22,7 @@ namespace HotelRoomBooking.Tests
                 .Options;
 
             _context = new HotelBookingContext(options);
-            _controller = new RoomsController(_context);
+            _controller = new RoomsController(new RoomService(new UnitOfWork(_context)));
 
             // Seed test data
             SeedTestData();

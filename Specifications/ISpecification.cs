@@ -6,7 +6,7 @@ namespace HotelRoomBooking.Specifications;
 /// Specification pattern interface for complex query logic
 /// </summary>
 /// <typeparam name="T">Entity type</typeparam>
-public interface ISpecification<T>
+public interface ISpecification<T> where T : class
 {
     /// <summary>
     /// The criteria expression for filtering

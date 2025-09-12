@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelRoomBooking.Specifications;
 
@@ -6,9 +7,9 @@ namespace HotelRoomBooking.Specifications;
 /// Base implementation of the specification pattern
 /// </summary>
 /// <typeparam name="T">Entity type</typeparam>
-public abstract class BaseSpecification<T> : ISpecification<T>
+public abstract class BaseSpecification<T> : ISpecification<T> where T : class
 {
-    public Expression<Func<T, bool>> Criteria { get; private set; }
+    public Expression<Func<T, bool>> Criteria { get; protected set; }
     public List<Expression<Func<T, object>>> Includes { get; } = new();
     public List<string> IncludeStrings { get; } = new();
     public List<(Expression<Func<T, object>> KeySelector, bool Ascending)> OrderBy { get; } = new();

@@ -58,7 +58,7 @@ public class CreateBookingCommand : ICommand
     {
         if (_createdBooking != null && CanUndo)
         {
-            _unitOfWork.Bookings.Delete(_createdBooking);
+            await _unitOfWork.Bookings.DeleteAsync(_createdBooking);
             await _unitOfWork.SaveChangesAsync();
             _createdBooking = null;
         }
@@ -97,7 +97,7 @@ public class CancelBookingCommand : ICommand
         if (_cancelledBooking.CheckInDate <= DateTime.Now.Date)
             throw new InvalidOperationException("Cannot cancel booking that has already started");
 
-        _unitOfWork.Bookings.Delete(_cancelledBooking);
+        await _unitOfWork.Bookings.DeleteAsync(_cancelledBooking);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -159,7 +159,7 @@ public class UpdateBookingDatesCommand : ICommand
         booking.CheckInDate = _newCheckIn;
         booking.CheckOutDate = _newCheckOut;
 
-        _unitOfWork.Bookings.Update(booking);
+        await _unitOfWork.Bookings.UpdateAsync(booking);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -172,7 +172,7 @@ public class UpdateBookingDatesCommand : ICommand
             {
                 booking.CheckInDate = _originalCheckIn;
                 booking.CheckOutDate = _originalCheckOut;
-                _unitOfWork.Bookings.Update(booking);
+                await _unitOfWork.Bookings.UpdateAsync(booking);
                 await _unitOfWork.SaveChangesAsync();
             }
         }

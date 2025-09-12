@@ -66,7 +66,7 @@ public class BookingService : IBookingService
 
     public async Task<IEnumerable<Booking>> GetAllBookingsAsync()
     {
-        return await _unitOfWork.Bookings.GetWithIncludesAsync(b => b.Room, r => r.Hotel);
+        return await _unitOfWork.Bookings.GetWithIncludesAsync(b => b.Room, b => b.Room.Hotel);
     }
 
     private async Task<List<string>> ValidateBookingRequestAsync(BookingRequest request)

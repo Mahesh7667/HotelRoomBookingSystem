@@ -42,8 +42,11 @@ namespace HotelRoomBooking.Models
             _comparisonProperty = comparisonProperty;
         }
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
+            if (value == null)
+                return ValidationResult.Success;
+
             var currentValue = (DateTime)value;
 
             var property = validationContext.ObjectType.GetProperty(_comparisonProperty);
