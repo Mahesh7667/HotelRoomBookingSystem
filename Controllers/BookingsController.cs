@@ -2,11 +2,16 @@ using HotelRoomBooking.Data;
 using HotelRoomBooking.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelRoomBooking.Controllers;
 
+/// <summary>
+/// Controller for managing hotel room bookings
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
+[Produces("application/json")]
 public class BookingsController : ControllerBase
 {
     private readonly HotelBookingContext _context;
@@ -16,8 +21,20 @@ public class BookingsController : ControllerBase
         _context = context;
     }
 
-    // POST: api/Bookings
+    /// <summary>
+    /// Create a new room booking
+    /// </summary>
+    /// <param name="request">Booking details including room, dates, and guest information</param>
+    /// <returns>Created booking with unique reference</returns>
+    /// <response code="201">Booking created successfully</response>
+    /// <response code="400">Invalid booking data or room capacity exceeded</response>
+    /// <response code="404">Room not found</response>
+    /// <response code="409">Room not available for selected dates</response>
     [HttpPost]
+    [ProducesResponseType(typeof(Booking), 201)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(409)]
     public async Task<ActionResult<Booking>> CreateBooking([FromBody] BookingRequest request)
     {
         if (request.CheckIn >= request.CheckOut)
@@ -73,8 +90,16 @@ public class BookingsController : ControllerBase
         return CreatedAtAction(nameof(GetBooking), new { reference = bookingReference }, booking);
     }
 
-    // GET: api/Bookings/{reference}
+    /// <summary>
+    /// Get booking details by booking reference
+    /// </summary>
+    /// <param name="reference">Unique booking reference (8 characters)</param>
+    /// <returns>Complete booking information including room and hotel details</returns>
+    /// <response code="200">Booking found and returned</response>
+    /// <response code="404">Booking not found</response>
     [HttpGet("{reference}")]
+    [ProducesResponseType(typeof(Booking), 200)]
+    [ProducesResponseType(404)]
     public async Task<ActionResult<Booking>> GetBooking(string reference)
     {
         var booking = await _context.Bookings
@@ -97,11 +122,43 @@ public class BookingsController : ControllerBase
     }
 }
 
+/// <summary>
+/// Request model for creating a new booking
+/// </summary>
 public class BookingRequest
 {
+    /// <summary>
+    /// ID of the room to book
+    /// </summary>
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Room ID must be a positive number")]
     public int RoomId { get; set; }
+
+    /// <summary>
+    /// Full name of the customer making the booking
+    /// </summary>
+    [Required(ErrorMessage = "Customer name is required")]
+    [StringLength(100, MinimumLength = 2, ErrorMessage = "Customer name must be between 2 and 100 characters")]
+    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Customer name can only contain letters and spaces")]
     public string CustomerName { get; set; }
+
+    /// <summary>
+    /// Check-in date (must be in the future)
+    /// </summary>
+    [Required(ErrorMessage = "Check-in date is required")]
     public DateTime CheckIn { get; set; }
+
+    /// <summary>
+    /// Check-out date (must be after check-in date)
+    /// </summary>
+    [Required(ErrorMessage = "Check-out date is required")]
+    [DateGreaterThan("CheckIn", ErrorMessage = "Check-out date must be after check-in date")]
     public DateTime CheckOut { get; set; }
+
+    /// <summary>
+    /// Number of guests (must be between 1 and room capacity)
+    /// </summary>
+    [Required(ErrorMessage = "Number of guests is required")]
+    [Range(1, 10, ErrorMessage = "Number of guests must be between 1 and 10")]
     public int NumberOfGuests { get; set; }
 }

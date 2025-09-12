@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{D8EDDF10-667F-433F-93A0-216DD06495D5}|HotelRoomBooking.csproj|solutionrelative:data\\hotelbookingcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D8EDDF10-667F-433F-93A0-216DD06495D5}|HotelRoomBooking.csproj|c:\\users\\mahes\\source\\repos\\new\\hotelroombookingsystem\\hotelroombooking.tests\\bookingscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8EDDF10-667F-433F-93A0-216DD06495D5}|HotelRoomBooking.csproj|solutionrelative:hotelroombooking.tests\\bookingscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D8EDDF10-667F-433F-93A0-216DD06495D5}|HotelRoomBooking.csproj|c:\\users\\mahes\\source\\repos\\new\\hotelroombookingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D8EDDF10-667F-433F-93A0-216DD06495D5}|HotelRoomBooking.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -52,8 +56,17 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BookingsControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\HotelRoomBooking.Tests\\BookingsControllerTests.cs",
+              "RelativeDocumentMoniker": "HotelRoomBooking.Tests\\BookingsControllerTests.cs",
+              "ToolTip": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\HotelRoomBooking.Tests\\BookingsControllerTests.cs",
+              "RelativeToolTip": "HotelRoomBooking.Tests\\BookingsControllerTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T15:12:17.06Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -63,14 +76,14 @@
               "RelativeDocumentMoniker": "Data\\HotelBookingContext.cs",
               "ToolTip": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Data\\HotelBookingContext.cs",
               "RelativeToolTip": "Data\\HotelBookingContext.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAzwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-12T12:52:16.234Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "DataController.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Controllers\\DataController.cs",
               "RelativeDocumentMoniker": "Controllers\\DataController.cs",
@@ -82,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "HotelsController.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Controllers\\HotelsController.cs",
               "RelativeDocumentMoniker": "Controllers\\HotelsController.cs",
@@ -94,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -106,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "RoomsController.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Controllers\\RoomsController.cs",
               "RelativeDocumentMoniker": "Controllers\\RoomsController.cs",
@@ -118,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "BookingsController.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Controllers\\BookingsController.cs",
               "RelativeDocumentMoniker": "Controllers\\BookingsController.cs",
@@ -130,7 +143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Hotel.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Models\\Hotel.cs",
               "RelativeDocumentMoniker": "Models\\Hotel.cs",
@@ -142,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -154,7 +167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Booking.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Models\\Booking.cs",
               "RelativeDocumentMoniker": "Models\\Booking.cs",
@@ -166,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Room.cs",
               "DocumentMoniker": "C:\\Users\\mahes\\source\\repos\\new\\HotelRoomBookingSystem\\Models\\Room.cs",
               "RelativeDocumentMoniker": "Models\\Room.cs",
@@ -175,6 +188,10 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-12T11:54:10.029Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
             }
           ]
         }
