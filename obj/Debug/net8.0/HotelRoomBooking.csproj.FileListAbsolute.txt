@@ -439,16 +439,3 @@ C:\Users\mahes\source\repos\HotelRoomBooking\bin\Debug\net8.0\refs\System.Xml.Xm
 C:\Users\mahes\source\repos\HotelRoomBooking\bin\Debug\net8.0\refs\System.Xml.XPath.dll
 C:\Users\mahes\source\repos\HotelRoomBooking\bin\Debug\net8.0\refs\System.Xml.XPath.XDocument.dll
 C:\Users\mahes\source\repos\HotelRoomBooking\bin\Debug\net8.0\refs\WindowsBase.dll
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.csproj.AssemblyReference.cache
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\MvcTestingAppManifest.json
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.AssemblyInfoInputs.cache
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.AssemblyInfo.cs
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.csproj.CoreCompileInputs.cache
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.sourcelink.json
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.dll
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\refint\HotelRoomBooking.dll
-C:\Users\mahes\source\repos\new\HotelRoomBookingSystem\obj\Debug\net8.0\HotelRoomBooking.pdb

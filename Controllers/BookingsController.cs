@@ -1,7 +1,6 @@
-using HotelRoomBooking.Data;
 using HotelRoomBooking.Models;
+using HotelRoomBooking.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace HotelRoomBooking.Controllers;
@@ -14,11 +13,11 @@ namespace HotelRoomBooking.Controllers;
 [Produces("application/json")]
 public class BookingsController : ControllerBase
 {
-    private readonly HotelBookingContext _context;
+    private readonly IBookingService _bookingService;
 
-    public BookingsController(HotelBookingContext context)
+    public BookingsController(IBookingService bookingService)
     {
-        _context = context;
+        _bookingService = bookingService ?? throw new ArgumentNullException(nameof(bookingService));
     }
 
     /// <summary>
@@ -37,57 +36,14 @@ public class BookingsController : ControllerBase
     [ProducesResponseType(409)]
     public async Task<ActionResult<Booking>> CreateBooking([FromBody] BookingRequest request)
     {
-        if (request.CheckIn >= request.CheckOut)
+        var result = await _bookingService.CreateBookingAsync(request);
+
+        if (!result.IsSuccess)
         {
-            return BadRequest("Check-out date must be after check-in date.");
+            return BadRequest(new { errors = result.Errors });
         }
 
-        if (request.NumberOfGuests <= 0)
-        {
-            return BadRequest("Number of guests must be greater than 0.");
-        }
-
-        // Check if room exists and has capacity
-        var room = await _context.Rooms.FindAsync(request.RoomId);
-        if (room == null)
-        {
-            return NotFound("Room not found.");
-        }
-
-        if (room.Capacity < request.NumberOfGuests)
-        {
-            return BadRequest("Room does not have sufficient capacity.");
-        }
-
-        // Check for overlapping bookings
-        var overlappingBooking = await _context.Bookings
-            .AnyAsync(b => b.RoomId == request.RoomId &&
-                          ((b.CheckInDate <= request.CheckIn && b.CheckOutDate > request.CheckIn) ||
-                           (b.CheckInDate < request.CheckOut && b.CheckOutDate >= request.CheckOut) ||
-                           (b.CheckInDate >= request.CheckIn && b.CheckOutDate <= request.CheckOut)));
-
-        if (overlappingBooking)
-        {
-            return Conflict("Room is not available for the selected dates.");
-        }
-
-        // Generate unique booking reference
-        var bookingReference = GenerateBookingReference();
-
-        var booking = new Booking
-        {
-            BookingReference = bookingReference,
-            RoomId = request.RoomId,
-            CustomerName = request.CustomerName,
-            CheckInDate = request.CheckIn,
-            CheckOutDate = request.CheckOut,
-            NumberOfGuests = request.NumberOfGuests
-        };
-
-        _context.Bookings.Add(booking);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetBooking), new { reference = bookingReference }, booking);
+        return CreatedAtAction(nameof(GetBooking), new { reference = result.Booking!.BookingReference }, result.Booking);
     }
 
     /// <summary>
@@ -102,10 +58,7 @@ public class BookingsController : ControllerBase
     [ProducesResponseType(404)]
     public async Task<ActionResult<Booking>> GetBooking(string reference)
     {
-        var booking = await _context.Bookings
-            .Include(b => b.Room)
-            .ThenInclude(r => r.Hotel)
-            .FirstOrDefaultAsync(b => b.BookingReference == reference);
+        var booking = await _bookingService.GetBookingByReferenceAsync(reference);
 
         if (booking == null)
         {
@@ -113,12 +66,6 @@ public class BookingsController : ControllerBase
         }
 
         return booking;
-    }
-
-    private string GenerateBookingReference()
-    {
-        // Simple reference generation - in production, use a more robust method
-        return Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
     }
 }
 
