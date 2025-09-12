@@ -27,10 +27,17 @@ A .NET 8 Web API for managing hotel room bookings, built with Entity Framework C
 6. Access Swagger at `https://localhost:5001/swagger` (or HTTP port)
 
 ## API Endpoints
-- **Hotels:** `/api/hotels` (GET, POST, PUT, DELETE)
-- **Rooms:** `/api/rooms` (GET, POST, PUT, DELETE)
-- **Bookings:** `/api/bookings` (GET, POST, PUT, DELETE)
-- **Data:** `/api/data/seed` (POST - Seed initial data)
+- **Hotels:**
+  - `GET /api/hotels?name={name}` - Find hotel by name
+  - `GET /api/hotels/all` - Get all hotels with rooms
+- **Rooms:**
+  - `GET /api/rooms/available?checkIn={date}&checkOut={date}&guests={number}` - Find available rooms
+- **Bookings:**
+  - `POST /api/bookings` - Create a new booking
+  - `GET /api/bookings/{reference}` - Get booking by reference
+- **Data:**
+  - `POST /api/data/seed` - Seed database with test data
+  - `POST /api/data/reset` - Reset all data
 
 ## Deployment to Azure
 1. Use Azure CLI or VSCode extension.
