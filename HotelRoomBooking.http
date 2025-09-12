@@ -1,6 +1,45 @@
 @HotelRoomBooking_HostAddress = http://localhost:5232
 
-GET {{HotelRoomBooking_HostAddress}}/weatherforecast/
+# Seed data
+POST {{HotelRoomBooking_HostAddress}}/api/data/seed
+Content-Type: application/json
+
+###
+
+# Get hotel by name
+GET {{HotelRoomBooking_HostAddress}}/api/hotels?name=Sample%20Hotel
 Accept: application/json
+
+###
+
+# Get available rooms
+GET {{HotelRoomBooking_HostAddress}}/api/rooms/available?checkIn=2025-09-15&checkOut=2025-09-16&guests=2
+Accept: application/json
+
+###
+
+# Create booking
+POST {{HotelRoomBooking_HostAddress}}/api/bookings
+Content-Type: application/json
+
+{
+  "roomId": 3,
+  "customerName": "John Doe",
+  "checkIn": "2025-09-15",
+  "checkOut": "2025-09-16",
+  "numberOfGuests": 2
+}
+
+###
+
+# Get booking by reference
+GET {{HotelRoomBooking_HostAddress}}/api/bookings/ABC12345
+Accept: application/json
+
+###
+
+# Reset data
+POST {{HotelRoomBooking_HostAddress}}/api/data/reset
+Content-Type: application/json
 
 ###

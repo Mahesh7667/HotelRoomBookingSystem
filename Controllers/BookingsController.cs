@@ -1,24 +1,15 @@
-using HotelBookingApi.Data;
-using HotelBookingApi.Models;
+using HotelRoomBooking.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace HotelBookingApi.Controllers;
+namespace HotelRoomBooking.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class BookingsController : ControllerBase
 {
-    private readonly HotelBookingContext _context;
-
-    public BookingsController(HotelBookingContext context)
-    {
-        _context = context;
-    }
-
     // POST: api/Bookings
     [HttpPost]
-    public async Task<ActionResult<Booking>> CreateBooking([FromBody] BookingRequest request)
+    public ActionResult<Booking> CreateBooking([FromBody] BookingRequest request)
     {
         if (request.CheckIn >= request.CheckOut)
         {
@@ -31,7 +22,7 @@ public class BookingsController : ControllerBase
         }
 
         // Check if room exists and has capacity
-        var room = await _context.Rooms.FindAsync(request.RoomId);
+        var room = DataStore.Rooms.FirstOrDefault(r => r.Id == request.RoomId);
         if (room == null)
         {
             return NotFound("Room not found.");
@@ -43,11 +34,11 @@ public class BookingsController : ControllerBase
         }
 
         // Check for overlapping bookings
-        var overlappingBooking = await _context.Bookings
-            .AnyAsync(b => b.RoomId == request.RoomId &&
-                          ((b.CheckInDate <= request.CheckIn && b.CheckOutDate > request.CheckIn) ||
-                           (b.CheckInDate < request.CheckOut && b.CheckOutDate >= request.CheckOut) ||
-                           (b.CheckInDate >= request.CheckIn && b.CheckOutDate <= request.CheckOut)));
+        var overlappingBooking = DataStore.Bookings
+            .Any(b => b.RoomId == request.RoomId &&
+                      ((b.CheckInDate <= request.CheckIn && b.CheckOutDate > request.CheckIn) ||
+                       (b.CheckInDate < request.CheckOut && b.CheckOutDate >= request.CheckOut) ||
+                       (b.CheckInDate >= request.CheckIn && b.CheckOutDate <= request.CheckOut)));
 
         if (overlappingBooking)
         {
@@ -59,31 +50,38 @@ public class BookingsController : ControllerBase
 
         var booking = new Booking
         {
+            Id = DataStore.Bookings.Count + 1,
             BookingReference = bookingReference,
             RoomId = request.RoomId,
+            Room = room,
+            CustomerName = request.CustomerName,
             CheckInDate = request.CheckIn,
             CheckOutDate = request.CheckOut,
             NumberOfGuests = request.NumberOfGuests
         };
 
-        _context.Bookings.Add(booking);
-        await _context.SaveChangesAsync();
+        DataStore.Bookings.Add(booking);
 
         return CreatedAtAction(nameof(GetBooking), new { reference = bookingReference }, booking);
     }
 
     // GET: api/Bookings/{reference}
     [HttpGet("{reference}")]
-    public async Task<ActionResult<Booking>> GetBooking(string reference)
+    public ActionResult<Booking> GetBooking(string reference)
     {
-        var booking = await _context.Bookings
-            .Include(b => b.Room!)
-            .ThenInclude(r => r.Hotel!)
-            .FirstOrDefaultAsync(b => b.BookingReference == reference);
+        var booking = DataStore.Bookings
+            .FirstOrDefault(b => b.BookingReference == reference);
 
         if (booking == null)
         {
             return NotFound("Booking not found.");
+        }
+
+        // Populate Room and Hotel
+        booking.Room = DataStore.Rooms.FirstOrDefault(r => r.Id == booking.RoomId);
+        if (booking.Room != null)
+        {
+            booking.Room.Hotel = DataStore.Hotels.FirstOrDefault(h => h.Id == booking.Room.HotelId);
         }
 
         return booking;
@@ -99,6 +97,7 @@ public class BookingsController : ControllerBase
 public class BookingRequest
 {
     public int RoomId { get; set; }
+    public string CustomerName { get; set; }
     public DateTime CheckIn { get; set; }
     public DateTime CheckOut { get; set; }
     public int NumberOfGuests { get; set; }

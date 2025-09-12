@@ -26,4 +26,11 @@ public class HotelsController : ControllerBase
 
         return hotel;
     }
+
+    // GET: api/GetAllHotels
+    [HttpGet("/api/GetAllHotels")]
+    public ActionResult<IEnumerable<Hotel>> GetAllHotels()
+    {
+        return DataStore.Hotels.ToList();
+    }
 }

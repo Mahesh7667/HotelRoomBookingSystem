@@ -26,10 +26,10 @@ C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\staticwebassets.bu
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\HotelRoo.7B4DD162.Up2Date
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\HotelRoomBooking.dll
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\refint\HotelRoomBooking.dll
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\HotelRoomBooking.pdb
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\HotelRoomBooking.genruntimeconfig.cache
 C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\ref\HotelRoomBooking.dll
+C:\Users\mahes\source\repos\HotelRoomBooking\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
