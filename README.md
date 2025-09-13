@@ -2,6 +2,9 @@
 
 A .NET 8 Web API for managing hotel room bookings, built with Entity Framework Core and SQLite.
 
+#### Disclaimer: Laid ground work for specifications, factories & commands to prevent techincal debt, but haven't still made use of these because the whole project ended up taking bit more time than I anticipated, so had to stop there. This can be future scope of the project.
+
+
 ## Live Demo
 - **Swagger UI:** http://hotelroombooking20250912183244-aqd4aycnced6fecs.ukwest-01.azurewebsites.net/swagger/index.html
 
